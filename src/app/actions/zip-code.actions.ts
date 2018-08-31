@@ -1,8 +1,15 @@
-import {Action} from "@ngrx/store";
+import {Action} from '@ngrx/store';
 
 export enum ZipCodeActionTypes {
-    AddZipCode = "[ZipCode] add ZipCode",
-    RemoveZipCode = "[ZipCode] add ZipCode",
+    LoadZipCode = '[ZipCode] load ZipCode',
+    AddZipCode = '[ZipCode] add ZipCode',
+    RemoveZipCode = '[ZipCode] remove ZipCode',
+}
+
+export class LoadZipCode implements Action {
+    readonly type = ZipCodeActionTypes.LoadZipCode;
+
+    constructor(public zipCodes: string[]){}
 }
 
 export class AddZipCode implements Action {
@@ -17,4 +24,4 @@ export class RemoveZipCode implements Action {
     constructor(public zipCode: string){}
 }
 
-export type ZipCodeActions = AddZipCode | RemoveZipCode;
+export type ZipCodeActions = LoadZipCode| AddZipCode | RemoveZipCode;
