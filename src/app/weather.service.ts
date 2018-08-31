@@ -13,6 +13,11 @@ export class WeatherService {
 
   constructor(private http: HttpClient) { }
 
+  loadCurrentConditions(zipcode: string): Observable<any> {
+      // Here we make a request to get the curretn conditions data from the API. Note the use of backticks and an expression to insert the zipcode
+      return this.http.get(`${WeatherService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${WeatherService.APPID}`);
+  }
+
   addCurrentConditions(zipcode: string): void {
     // Here we make a request to get the curretn conditions data from the API. Note the use of backticks and an expression to insert the zipcode
     this.http.get(`${WeatherService.URL}/weather?zip=${zipcode},us&units=imperial&APPID=${WeatherService.APPID}`)
