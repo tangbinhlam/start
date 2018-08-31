@@ -1,18 +1,26 @@
-import { Action } from '@ngrx/store';
+import {ZipCodeActions, ZipCodeActionTypes} from "../actions/zip-code.actions";
 
 
-export interface State {
+export interface ZipcodesState {
     zipCodes: Array<String>;
 }
 
-export const initialState: State = {
+export const initialState: ZipcodesState = {
     zipCodes: [],
 };
 
-export function reducer(state = initialState, action: Action): State {
-  switch (action.type) {
-
-    default:
-      return state;
-  }
+export function zipCodeReducer(state = initialState, action: ZipCodeActions): ZipcodesState {
+    switch (action.type) {
+        case ZipCodeActionTypes.AddZipCode: {
+            return {...state, zipCodes: [...state.zipCodes, action.zipCode]}
+        }
+        case ZipCodeActionTypes.RemoveZipCode: {
+            return {
+                ...state, zipCodes: state.zipCodes
+                    .filter(item => item !== action.zipCode)
+            };
+        }
+        default:
+            return state;
+    }
 }
