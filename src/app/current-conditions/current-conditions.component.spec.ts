@@ -5,6 +5,8 @@ import {ZipcodesState} from '../reducers/zip-codes.reducer';
 import {CurrentConditionsComponent} from './current-conditions.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AddZipCode} from '../actions/zip-code.actions';
+import {of} from 'rxjs/index';
+import {WeatherService} from '../weather.service';
 
 describe('CurrentConditionsComponent', () => {
     let component: CurrentConditionsComponent;
@@ -18,7 +20,12 @@ describe('CurrentConditionsComponent', () => {
                 RouterTestingModule,
             ],
             providers: [
-                {provide: Store, useClass: TestStore}   // use test store instead of ngrx store
+                {provide: Store, useClass: TestStore}, // use test store instead of ngrx store
+                {
+                    provide: WeatherService, useValue: {
+                        loadCurrentConditions: (zipCode: string) => of({name: 'OsaLam'}),
+                    }
+                },
             ]
         }).compileComponents();
     }));
